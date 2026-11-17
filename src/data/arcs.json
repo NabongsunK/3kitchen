@@ -1,10 +1,10 @@
 [
-  {"arcID": "arc0001", "code": "huangjin", "name": "황건과 동탁", "startChpID": "chp0001", "endChpID": "chp0009", "startYear": 184, "endYear": 192, "bossChrID": "chr0008"},
-  {"arcID": "arc0002", "code": "qunxiong", "name": "군웅할거", "startChpID": "chp0010", "endChpID": "chp0020", "startYear": 193, "endYear": 199, "bossChrID": "chr0011"},
-  {"arcID": "arc0003", "code": "guandu", "name": "관도대전", "startChpID": "chp0021", "endChpID": "chp0033", "startYear": 199, "endYear": 207, "bossChrID": "chr0015"},
-  {"arcID": "arc0004", "code": "chibi", "name": "삼고초려와 적벽", "startChpID": "chp0034", "endChpID": "chp0050", "startYear": 207, "endYear": 208, "bossChrID": "chr0005"},
-  {"arcID": "arc0005", "code": "jingyi", "name": "형주·익주·한중", "startChpID": "chp0051", "endChpID": "chp0072", "startYear": 209, "endYear": 219, "bossChrID": "chr0035"},
-  {"arcID": "arc0006", "code": "yiling", "name": "관우의 최후와 이릉", "startChpID": "chp0073", "endChpID": "chp0085", "startYear": 219, "endYear": 223, "bossChrID": "chr0087"},
-  {"arcID": "arc0007", "code": "beifa", "name": "남정과 북벌", "startChpID": "chp0086", "endChpID": "chp0105", "startYear": 224, "endYear": 235, "bossChrID": "chr0095"},
-  {"arcID": "arc0008", "code": "tongyi", "name": "삼분귀일", "startChpID": "chp0106", "endChpID": "chp0120", "startYear": 238, "endYear": 280, "bossChrID": "chr0116"}
+  {"ARC_ID": "arc0001", "CODE": "huangjin", "NAME": "황건과 동탁", "START_CHP_ID": "chp0001", "END_CHP_ID": "chp0009", "START_YEAR": 184, "END_YEAR": 192, "BOSS_CHR_ID": "chr0008"},
+  {"ARC_ID": "arc0002", "CODE": "qunxiong", "NAME": "군웅할거", "START_CHP_ID": "chp0010", "END_CHP_ID": "chp0020", "START_YEAR": 193, "END_YEAR": 199, "BOSS_CHR_ID": "chr0011"},
+  {"ARC_ID": "arc0003", "CODE": "guandu", "NAME": "관도대전", "START_CHP_ID": "chp0021", "END_CHP_ID": "chp0033", "START_YEAR": 199, "END_YEAR": 207, "BOSS_CHR_ID": "chr0015"},
+  {"ARC_ID": "arc0004", "CODE": "chibi", "NAME": "삼고초려와 적벽", "START_CHP_ID": "chp0034", "END_CHP_ID": "chp0050", "START_YEAR": 207, "END_YEAR": 208, "BOSS_CHR_ID": "chr0005"},
+  {"ARC_ID": "arc0005", "CODE": "jingyi", "NAME": "형주·익주·한중", "START_CHP_ID": "chp0051", "END_CHP_ID": "chp0072", "START_YEAR": 209, "END_YEAR": 219, "BOSS_CHR_ID": "chr0035"},
+  {"ARC_ID": "arc0006", "CODE": "yiling", "NAME": "관우의 최후와 이릉", "START_CHP_ID": "chp0073", "END_CHP_ID": "chp0085", "START_YEAR": 219, "END_YEAR": 223, "BOSS_CHR_ID": "chr0087"},
+  {"ARC_ID": "arc0007", "CODE": "beifa", "NAME": "남정과 북벌", "START_CHP_ID": "chp0086", "END_CHP_ID": "chp0105", "START_YEAR": 224, "END_YEAR": 235, "BOSS_CHR_ID": "chr0095"},
+  {"ARC_ID": "arc0008", "CODE": "tongyi", "NAME": "삼분귀일", "START_CHP_ID": "chp0106", "END_CHP_ID": "chp0120", "START_YEAR": 238, "END_YEAR": 280, "BOSS_CHR_ID": "chr0116"}
 ]

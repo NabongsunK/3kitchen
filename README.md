@@ -62,7 +62,7 @@ npm run dev
 
 ## 콘텐츠 데이터
 
-`src/data/`의 JSON 파일이 곧 테이블입니다 (나중에 RDB로 옮길 것을 전제로 한 구조). 파일 이름이 테이블 이름이고, 기본키는 `테이블약자ID` (값은 `chr0001`처럼 약자 + 4자리 순번)입니다. 테이블 목록과 열 정의는 [docs/데이터.md](docs/데이터.md)에 있습니다.
+`src/data/`의 JSON 파일이 곧 테이블입니다 (나중에 RDB로 옮길 것을 전제로 한 구조). 파일 이름이 테이블 이름이고, 열 이름은 대문자 스네이크(`NAME_KO`), 기본키는 `테이블약자_ID`(`CHR_ID`, 값은 `chr0001`처럼 약자 + 4자리 순번)입니다. 코드에서는 매퍼(`src/data/mapper.ts`)가 카멜 케이스(`chrId`)로 바꿔 씁니다. 테이블 목록과 열 정의는 [docs/데이터.md](docs/데이터.md)에 있습니다.
 
 | 테이블 | 내용 |
 |--------|------|
@@ -83,7 +83,7 @@ src/
   game/play.ts     영업 규칙 (DOM과 무관한 순수 로직)
   game/save.ts     진행도 저장 (localStorage)
   game/sprites.ts  코드로 그리는 픽셀 아트
-  data/            콘텐츠 데이터
+  data/            콘텐츠 데이터 (JSON 테이블, mapper.ts, index.ts)
 scripts/validate.py
 ```
 

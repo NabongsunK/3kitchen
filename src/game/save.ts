@@ -1,7 +1,7 @@
 // 진행도 저장 (localStorage). 저장소를 못 쓰는 환경에서도 게임은 돌아가야 한다.
 export interface SaveData {
   unlocked: number; // 플레이 가능한 마지막 장 번호 (stgNo)
-  best: Record<string, { score: number; stars: number }>; // stgID → 최고 기록
+  best: Record<string, { score: number; stars: number }>; // stgId → 최고 기록
 }
 
 const KEY = '3kitchen.save.v2';
@@ -28,12 +28,12 @@ export function writeSave(d: SaveData): void {
 
 /** 결과를 반영한 새 저장 데이터. 별 1개 이상이면 다음 장 해금 */
 export function recordResult(
-  d: SaveData, stage: { stgID: string; stgNo: number }, score: number, stars: number, lastStgNo: number,
+  d: SaveData, stage: { stgId: string; stgNo: number }, score: number, stars: number, lastStgNo: number,
 ): SaveData {
-  const prev = d.best[stage.stgID];
+  const prev = d.best[stage.stgId];
   const best = {
     ...d.best,
-    [stage.stgID]: { score: Math.max(prev?.score ?? 0, score), stars: Math.max(prev?.stars ?? 0, stars) },
+    [stage.stgId]: { score: Math.max(prev?.score ?? 0, score), stars: Math.max(prev?.stars ?? 0, stars) },
   };
   const unlocked = stars > 0 ? Math.min(lastStgNo, Math.max(d.unlocked, stage.stgNo + 1)) : d.unlocked;
   return { unlocked, best };

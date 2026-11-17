@@ -7,18 +7,19 @@ import {
   BASE_POINTS, SPEED_BONUS, WRONG_PENALTY,
 } from './play';
 import { emptySave, recordResult } from './save';
+import { mapRows, toCamel } from '../data/mapper';
 
 // 코드 → ID (테스트 가독성용)
-const ing = (code: string) => ingredients.find((x) => x.code === code)!.ingID;
-const rcp = (code: string) => recipes.find((x) => x.code === code)!.rcpID;
-const chr = (code: string) => characters.find((x) => x.code === code)!.chrID;
+const ing = (code: string) => ingredients.find((x) => x.code === code)!.ingId;
+const rcp = (code: string) => recipes.find((x) => x.code === code)!.rcpId;
+const chr = (code: string) => characters.find((x) => x.code === code)!.chrId;
 
 const customer = (code: string, dish: string, hidden = false): StageCustomer => ({
-  stcID: 'stc9999', stgID: 'stg9999', chrID: chr(code), rcpID: rcp(dish), line: '', hidden, sortOrder: 1,
+  stcId: 'stc9999', stgId: 'stg9999', chrId: chr(code), rcpId: rcp(dish), line: '', hidden, sortOrder: 1,
 });
 
 const stage = (over: Partial<Stage> = {}): Stage => ({
-  stgID: 'stg9999', stgNo: 99, name: '테스트', chpID: 'chp0001', era: '', year: 184, patience: 10, arrivalGap: 1,
+  stgId: 'stg9999', stgNo: 99, name: '테스트', chpId: 'chp0001', era: '', year: 184, patience: 10, arrivalGap: 1,
   customers: [customer('liubei', 'kongjuk')],
   ...over,
 });
@@ -98,13 +99,13 @@ test('별점 계산', () => {
 });
 
 test('클리어하면 다음 스테이지가 열리고 최고 기록이 유지된다', () => {
-  const s1 = { stgID: 'stg0001', stgNo: 1 };
+  const s1 = { stgId: 'stg0001', stgNo: 1 };
   let d = recordResult(emptySave(), s1, 300, 2, 5);
   assert.equal(d.unlocked, 2);
   d = recordResult(d, s1, 100, 0, 5);
   assert.deepEqual(d.best.stg0001, { score: 300, stars: 2 });
   assert.equal(d.unlocked, 2);
-  assert.equal(recordResult({ unlocked: 5, best: {} }, { stgID: 'stg0005', stgNo: 5 }, 1, 1, 5).unlocked, 5);
+  assert.equal(recordResult({ unlocked: 5, best: {} }, { stgId: 'stg0005', stgNo: 5 }, 1, 1, 5).unlocked, 5);
 });
 
 test('모든 스테이지를 실수 없이 깨면 별 3개', () => {
@@ -114,7 +115,7 @@ test('모든 스테이지를 실수 없이 깨면 별 3개', () => {
       update(s, 0.25);
       const seat = s.seats[s.target];
       if (isActive(seat)) {
-        recipeById.get(seat.customer.rcpID)!.steps.forEach((i) => addIngredient(s, i));
+        recipeById.get(seat.customer.rcpId)!.steps.forEach((i) => addIngredient(s, i));
         serve(s, recipeById);
       }
     }
@@ -122,4 +123,20 @@ test('모든 스테이지를 실수 없이 깨면 별 3개', () => {
     assert.equal(s.served, s.arrived, st.name);
     assert.equal(starsFor(s.served, s.arrived, s.mistakes), 3, st.name);
   }
+});
+
+test('매퍼: 대문자 스네이크 열을 카멜 케이스로 바꾼다', () => {
+  assert.equal(toCamel('CHR_ID'), 'chrId');
+  assert.equal(toCamel('BOSS_CHR_ID'), 'bossChrId');
+  assert.equal(toCamel('NAME_KO'), 'nameKo');
+  assert.equal(toCamel('YEAR'), 'year');
+  assert.deepEqual(mapRows([{ STG_NO: 1, ARRIVAL_GAP: 3.5 }]), [{ stgNo: 1, arrivalGap: 3.5 }]);
+});
+
+test('매퍼: 모든 테이블 행이 카멜 케이스 키를 가진다', () => {
+  for (const row of [...characters, ...recipes, ...stages, ...ingredients]) {
+    for (const k of Object.keys(row)) assert.match(k, /^[a-z][a-zA-Z0-9]*$/, k);
+  }
+  assert.ok(characters[0].chrId.startsWith('chr'));
+  assert.ok(characters[0].faction.facId.startsWith('fac'));
 });

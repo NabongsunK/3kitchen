@@ -1,8 +1,9 @@
-// 테이블(JSON)을 읽어 게임에서 쓰는 모델로 조합한다.
+// 테이블(JSON)을 읽어 매퍼로 카멜 케이스로 바꾼 뒤 게임에서 쓰는 모델로 조합한다.
 import type {
   ArcRow, Chapter, ChapterCastRow, ChapterFoodHookRow, ChapterRow, Character, CharacterRow,
   FactionRow, IngredientRow, Recipe, RecipeIngredientRow, RecipeRow, Stage, StageCustomerRow, StageRow,
 } from './types';
+import { mapRows } from './mapper';
 import arcsTable from './arcs.json';
 import chapterCastsTable from './chapter_casts.json';
 import chapterFoodHooksTable from './chapter_food_hooks.json';
@@ -25,39 +26,39 @@ export function mustGet<V>(map: Map<string, V>, key: string): V {
 }
 
 // 테이블
-export const factionRows = factionsTable as FactionRow[];
-export const arcs = arcsTable as ArcRow[];
-export const ingredients = ingredientsTable as IngredientRow[];
-const characterRows = charactersTable as CharacterRow[];
-const chapterRows = chaptersTable as ChapterRow[];
-const castRows = chapterCastsTable as ChapterCastRow[];
-const hookRows = chapterFoodHooksTable as ChapterFoodHookRow[];
-const recipeRows = recipesTable as RecipeRow[];
-const recipeIngredientRows = recipeIngredientsTable as RecipeIngredientRow[];
-const stageRows = stagesTable as StageRow[];
-const stageCustomerRows = stageCustomersTable as StageCustomerRow[];
+export const factionRows = mapRows<FactionRow>(factionsTable);
+export const arcs = mapRows<ArcRow>(arcsTable);
+export const ingredients = mapRows<IngredientRow>(ingredientsTable);
+const characterRows = mapRows<CharacterRow>(charactersTable);
+const chapterRows = mapRows<ChapterRow>(chaptersTable);
+const castRows = mapRows<ChapterCastRow>(chapterCastsTable);
+const hookRows = mapRows<ChapterFoodHookRow>(chapterFoodHooksTable);
+const recipeRows = mapRows<RecipeRow>(recipesTable);
+const recipeIngredientRows = mapRows<RecipeIngredientRow>(recipeIngredientsTable);
+const stageRows = mapRows<StageRow>(stagesTable);
+const stageCustomerRows = mapRows<StageCustomerRow>(stageCustomersTable);
 
 // 조합 모델
-const factionById = index(factionRows, 'facID');
+const factionById = index(factionRows, 'facId');
 
-export const characters: Character[] = characterRows.map((c) => ({ ...c, faction: mustGet(factionById, c.facID) }));
+export const characters: Character[] = characterRows.map((c) => ({ ...c, faction: mustGet(factionById, c.facId) }));
 
 export const recipes: Recipe[] = recipeRows.map((r) => ({
   ...r,
-  steps: recipeIngredientRows.filter((x) => x.rcpID === r.rcpID).sort((a, b) => a.step - b.step).map((x) => x.ingID),
+  steps: recipeIngredientRows.filter((x) => x.rcpId === r.rcpId).sort((a, b) => a.step - b.step).map((x) => x.ingId),
 }));
 
 export const chapters: Chapter[] = chapterRows.map((ch) => ({
   ...ch,
-  cast: castRows.filter((x) => x.chpID === ch.chpID).sort(bySort).map((x) => x.chrID),
-  foodHooks: hookRows.filter((x) => x.chpID === ch.chpID).sort(bySort).map((x) => x.description),
+  cast: castRows.filter((x) => x.chpId === ch.chpId).sort(bySort).map((x) => x.chrId),
+  foodHooks: hookRows.filter((x) => x.chpId === ch.chpId).sort(bySort).map((x) => x.description),
 }));
 
 export const stages: Stage[] = stageRows
-  .map((s) => ({ ...s, customers: stageCustomerRows.filter((x) => x.stgID === s.stgID).sort(bySort) }))
+  .map((s) => ({ ...s, customers: stageCustomerRows.filter((x) => x.stgId === s.stgId).sort(bySort) }))
   .sort((a, b) => a.stgNo - b.stgNo);
 
-export const characterById = index(characters, 'chrID');
-export const chapterById = index(chapters, 'chpID');
-export const ingredientById = index(ingredients, 'ingID');
-export const recipeById = index(recipes, 'rcpID');
+export const characterById = index(characters, 'chrId');
+export const chapterById = index(chapters, 'chpId');
+export const ingredientById = index(ingredients, 'ingId');
+export const recipeById = index(recipes, 'rcpId');

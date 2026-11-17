@@ -1,11 +1,11 @@
 [
-  {"facID": "fac0001", "code": "han", "name": "한"},
-  {"facID": "fac0002", "code": "yellowTurban", "name": "황건적"},
-  {"facID": "fac0003", "code": "warlord", "name": "군웅"},
-  {"facID": "fac0004", "code": "wei", "name": "위"},
-  {"facID": "fac0005", "code": "shu", "name": "촉"},
-  {"facID": "fac0006", "code": "wu", "name": "오"},
-  {"facID": "fac0007", "code": "jin", "name": "진"},
-  {"facID": "fac0008", "code": "nanman", "name": "남만"},
-  {"facID": "fac0009", "code": "other", "name": "재야"}
+  {"FAC_ID": "fac0001", "CODE": "han", "NAME": "한"},
+  {"FAC_ID": "fac0002", "CODE": "yellowTurban", "NAME": "황건적"},
+  {"FAC_ID": "fac0003", "CODE": "warlord", "NAME": "군웅"},
+  {"FAC_ID": "fac0004", "CODE": "wei", "NAME": "위"},
+  {"FAC_ID": "fac0005", "CODE": "shu", "NAME": "촉"},
+  {"FAC_ID": "fac0006", "CODE": "wu", "NAME": "오"},
+  {"FAC_ID": "fac0007", "CODE": "jin", "NAME": "진"},
+  {"FAC_ID": "fac0008", "CODE": "nanman", "NAME": "남만"},
+  {"FAC_ID": "fac0009", "CODE": "other", "NAME": "재야"}
 ]

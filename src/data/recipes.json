@@ -1,6 +1,6 @@
 [
-  {"rcpID": "rcp0001", "code": "kongjuk", "name": "콩죽"},
-  {"rcpID": "rcp0002", "code": "peachwine", "name": "도원복숭아주"},
-  {"rcpID": "rcp0003", "code": "plumpickle", "name": "청매절임"},
-  {"rcpID": "rcp0004", "code": "skewer", "name": "화로꼬치"}
+  {"RCP_ID": "rcp0001", "CODE": "kongjuk", "NAME": "콩죽"},
+  {"RCP_ID": "rcp0002", "CODE": "peachwine", "NAME": "도원복숭아주"},
+  {"RCP_ID": "rcp0003", "CODE": "plumpickle", "NAME": "청매절임"},
+  {"RCP_ID": "rcp0004", "CODE": "skewer", "NAME": "화로꼬치"}
 ]

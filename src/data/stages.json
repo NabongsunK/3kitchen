@@ -1,7 +1,7 @@
 [
-  {"stgID": "stg0001", "stgNo": 1, "name": "도원결의", "chpID": "chp0001", "era": "중평 원년", "year": 184, "patience": 25, "arrivalGap": 4},
-  {"stgID": "stg0002", "stgNo": 2, "name": "동탁의 횡포", "chpID": "chp0003", "era": "중평 6년", "year": 189, "patience": 22, "arrivalGap": 4},
-  {"stgID": "stg0003", "stgNo": 3, "name": "삼영전여포", "chpID": "chp0005", "era": "초평 원년", "year": 190, "patience": 20, "arrivalGap": 3.5},
-  {"stgID": "stg0004", "stgNo": 4, "name": "연환계", "chpID": "chp0008", "era": "초평 3년", "year": 192, "patience": 18, "arrivalGap": 3},
-  {"stgID": "stg0005", "stgNo": 5, "name": "청매자론주", "chpID": "chp0021", "era": "건안 4년", "year": 199, "patience": 16, "arrivalGap": 3}
+  {"STG_ID": "stg0001", "STG_NO": 1, "NAME": "도원결의", "CHP_ID": "chp0001", "ERA": "중평 원년", "YEAR": 184, "PATIENCE": 25, "ARRIVAL_GAP": 4},
+  {"STG_ID": "stg0002", "STG_NO": 2, "NAME": "동탁의 횡포", "CHP_ID": "chp0003", "ERA": "중평 6년", "YEAR": 189, "PATIENCE": 22, "ARRIVAL_GAP": 4},
+  {"STG_ID": "stg0003", "STG_NO": 3, "NAME": "삼영전여포", "CHP_ID": "chp0005", "ERA": "초평 원년", "YEAR": 190, "PATIENCE": 20, "ARRIVAL_GAP": 3.5},
+  {"STG_ID": "stg0004", "STG_NO": 4, "NAME": "연환계", "CHP_ID": "chp0008", "ERA": "초평 3년", "YEAR": 192, "PATIENCE": 18, "ARRIVAL_GAP": 3},
+  {"STG_ID": "stg0005", "STG_NO": 5, "NAME": "청매자론주", "CHP_ID": "chp0021", "ERA": "건안 4년", "YEAR": 199, "PATIENCE": 16, "ARRIVAL_GAP": 3}
 ]

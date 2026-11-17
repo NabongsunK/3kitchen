@@ -1,13 +1,13 @@
 [
-  {"rciID": "rci0001", "rcpID": "rcp0001", "ingID": "ing0001", "step": 1},
-  {"rciID": "rci0002", "rcpID": "rcp0001", "ingID": "ing0002", "step": 2},
-  {"rciID": "rci0003", "rcpID": "rcp0002", "ingID": "ing0003", "step": 1},
-  {"rciID": "rci0004", "rcpID": "rcp0002", "ingID": "ing0004", "step": 2},
-  {"rciID": "rci0005", "rcpID": "rcp0002", "ingID": "ing0005", "step": 3},
-  {"rciID": "rci0006", "rcpID": "rcp0003", "ingID": "ing0006", "step": 1},
-  {"rciID": "rci0007", "rcpID": "rcp0003", "ingID": "ing0007", "step": 2},
-  {"rciID": "rci0008", "rcpID": "rcp0003", "ingID": "ing0005", "step": 3},
-  {"rciID": "rci0009", "rcpID": "rcp0004", "ingID": "ing0008", "step": 1},
-  {"rciID": "rci0010", "rcpID": "rcp0004", "ingID": "ing0004", "step": 2},
-  {"rciID": "rci0011", "rcpID": "rcp0004", "ingID": "ing0007", "step": 3}
+  {"RCI_ID": "rci0001", "RCP_ID": "rcp0001", "ING_ID": "ing0001", "STEP": 1},
+  {"RCI_ID": "rci0002", "RCP_ID": "rcp0001", "ING_ID": "ing0002", "STEP": 2},
+  {"RCI_ID": "rci0003", "RCP_ID": "rcp0002", "ING_ID": "ing0003", "STEP": 1},
+  {"RCI_ID": "rci0004", "RCP_ID": "rcp0002", "ING_ID": "ing0004", "STEP": 2},
+  {"RCI_ID": "rci0005", "RCP_ID": "rcp0002", "ING_ID": "ing0005", "STEP": 3},
+  {"RCI_ID": "rci0006", "RCP_ID": "rcp0003", "ING_ID": "ing0006", "STEP": 1},
+  {"RCI_ID": "rci0007", "RCP_ID": "rcp0003", "ING_ID": "ing0007", "STEP": 2},
+  {"RCI_ID": "rci0008", "RCP_ID": "rcp0003", "ING_ID": "ing0005", "STEP": 3},
+  {"RCI_ID": "rci0009", "RCP_ID": "rcp0004", "ING_ID": "ing0008", "STEP": 1},
+  {"RCI_ID": "rci0010", "RCP_ID": "rcp0004", "ING_ID": "ing0004", "STEP": 2},
+  {"RCI_ID": "rci0011", "RCP_ID": "rcp0004", "ING_ID": "ing0007", "STEP": 3}
 ]

@@ -1,10 +1,10 @@
 [
-  {"ingID": "ing0001", "code": "bean", "name": "콩"},
-  {"ingID": "ing0002", "code": "rice", "name": "쌀"},
-  {"ingID": "ing0003", "code": "peach", "name": "복숭아"},
-  {"ingID": "ing0004", "code": "wine", "name": "술"},
-  {"ingID": "ing0005", "code": "honey", "name": "꿀"},
-  {"ingID": "ing0006", "code": "plum", "name": "매실"},
-  {"ingID": "ing0007", "code": "salt", "name": "소금"},
-  {"ingID": "ing0008", "code": "meat", "name": "고기"}
+  {"ING_ID": "ing0001", "CODE": "bean", "NAME": "콩"},
+  {"ING_ID": "ing0002", "CODE": "rice", "NAME": "쌀"},
+  {"ING_ID": "ing0003", "CODE": "peach", "NAME": "복숭아"},
+  {"ING_ID": "ing0004", "CODE": "wine", "NAME": "술"},
+  {"ING_ID": "ing0005", "CODE": "honey", "NAME": "꿀"},
+  {"ING_ID": "ing0006", "CODE": "plum", "NAME": "매실"},
+  {"ING_ID": "ing0007", "CODE": "salt", "NAME": "소금"},
+  {"ING_ID": "ing0008", "CODE": "meat", "NAME": "고기"}
 ]
