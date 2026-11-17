@@ -1,28 +1,63 @@
-import type { Arc, Chapter, Character, Ingredient, Recipe, Stage } from './types';
-import arcsJson from './arcs.json';
-import chaptersJson from './chapters.json';
-import charactersJson from './characters.json';
-import ingredientsJson from './ingredients.json';
-import recipesJson from './recipes.json';
-import stagesJson from './stages.json';
+// 테이블(JSON)을 읽어 게임에서 쓰는 모델로 조합한다.
+import type {
+  ArcRow, Chapter, ChapterCastRow, ChapterFoodHookRow, ChapterRow, Character, CharacterRow,
+  FactionRow, IngredientRow, Recipe, RecipeIngredientRow, RecipeRow, Stage, StageCustomerRow, StageRow,
+} from './types';
+import arcsTable from './arcs.json';
+import chapterCastsTable from './chapter_casts.json';
+import chapterFoodHooksTable from './chapter_food_hooks.json';
+import chaptersTable from './chapters.json';
+import charactersTable from './characters.json';
+import factionsTable from './factions.json';
+import ingredientsTable from './ingredients.json';
+import recipeIngredientsTable from './recipe_ingredients.json';
+import recipesTable from './recipes.json';
+import stageCustomersTable from './stage_customers.json';
+import stagesTable from './stages.json';
 
-export const arcs = arcsJson as Arc[];
-export const chapters = chaptersJson as Chapter[];
-export const characters = charactersJson as Character[];
-export const ingredients = ingredientsJson as Ingredient[];
-export const recipes = recipesJson as Recipe[];
-export const stages = stagesJson as Stage[];
+const index = <T, K extends keyof T>(rows: T[], key: K) => new Map(rows.map((r) => [r[key] as string, r]));
+const bySort = <T extends { sortOrder: number }>(a: T, b: T) => a.sortOrder - b.sortOrder;
 
-const byId = <T extends { id: string | number }>(list: T[]) =>
-  new Map<T['id'], T>(list.map((x) => [x.id, x]));
-
-export const chapterById = byId(chapters);
-export const characterById = byId(characters);
-export const ingredientById = byId(ingredients);
-export const recipeById = byId(recipes);
-
-export function mustGet<K, V>(map: Map<K, V>, key: K): V {
+export function mustGet<V>(map: Map<string, V>, key: string): V {
   const v = map.get(key);
-  if (v === undefined) throw new Error(`데이터 없음: ${String(key)}`);
+  if (v === undefined) throw new Error(`데이터 없음: ${key}`);
   return v;
 }
+
+// 테이블
+export const factionRows = factionsTable as FactionRow[];
+export const arcs = arcsTable as ArcRow[];
+export const ingredients = ingredientsTable as IngredientRow[];
+const characterRows = charactersTable as CharacterRow[];
+const chapterRows = chaptersTable as ChapterRow[];
+const castRows = chapterCastsTable as ChapterCastRow[];
+const hookRows = chapterFoodHooksTable as ChapterFoodHookRow[];
+const recipeRows = recipesTable as RecipeRow[];
+const recipeIngredientRows = recipeIngredientsTable as RecipeIngredientRow[];
+const stageRows = stagesTable as StageRow[];
+const stageCustomerRows = stageCustomersTable as StageCustomerRow[];
+
+// 조합 모델
+const factionById = index(factionRows, 'facID');
+
+export const characters: Character[] = characterRows.map((c) => ({ ...c, faction: mustGet(factionById, c.facID) }));
+
+export const recipes: Recipe[] = recipeRows.map((r) => ({
+  ...r,
+  steps: recipeIngredientRows.filter((x) => x.rcpID === r.rcpID).sort((a, b) => a.step - b.step).map((x) => x.ingID),
+}));
+
+export const chapters: Chapter[] = chapterRows.map((ch) => ({
+  ...ch,
+  cast: castRows.filter((x) => x.chpID === ch.chpID).sort(bySort).map((x) => x.chrID),
+  foodHooks: hookRows.filter((x) => x.chpID === ch.chpID).sort(bySort).map((x) => x.description),
+}));
+
+export const stages: Stage[] = stageRows
+  .map((s) => ({ ...s, customers: stageCustomerRows.filter((x) => x.stgID === s.stgID).sort(bySort) }))
+  .sort((a, b) => a.stgNo - b.stgNo);
+
+export const characterById = index(characters, 'chrID');
+export const chapterById = index(chapters, 'chpID');
+export const ingredientById = index(ingredients, 'ingID');
+export const recipeById = index(recipes, 'rcpID');

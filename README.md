@@ -62,17 +62,17 @@ npm run dev
 
 ## 콘텐츠 데이터
 
-`src/data/`의 JSON만 고치면 장, 손님, 레시피를 늘릴 수 있습니다. 스키마는 `src/data/types.ts`에 있습니다.
+`src/data/`의 JSON 파일이 곧 테이블입니다 (나중에 RDB로 옮길 것을 전제로 한 구조). 파일 이름이 테이블 이름이고, 기본키는 `테이블약자ID` (값은 `chr0001`처럼 약자 + 4자리 순번)입니다. 테이블 목록과 열 정의는 [docs/데이터.md](docs/데이터.md)에 있습니다.
 
-| 파일 | 내용 |
-|------|------|
-| `chapters.json` | 원작 120회 전체: 회목(모종강본), 배경 연도, 구간, 주요 인물, 음식 장면 |
-| `characters.json` | 인물 120명: 한글·한자 이름, 세력 |
-| `arcs.json` | 업데이트 단위 8개 구간과 구간 보스 손님 |
-| `stages.json` | 게임 장: 무대가 되는 원작 회차, 손님 순서, 대사, 난이도 |
-| `recipes.json`, `ingredients.json` | 레시피와 재료 |
+| 테이블 | 내용 |
+|--------|------|
+| `chapters`, `chapter_casts`, `chapter_food_hooks` | 원작 120회: 회목(모종강본), 배경 연도, 주요 인물, 음식 장면 |
+| `characters`, `factions` | 인물 120명과 세력 |
+| `arcs` | 업데이트 단위 8개 구간과 구간 보스 손님 |
+| `stages`, `stage_customers` | 게임 장: 무대가 되는 원작 회차, 손님 순서, 대사, 난이도 |
+| `recipes`, `recipe_ingredients`, `ingredients` | 레시피와 재료 |
 
-`chapters.json`의 `foodHooks`에는 원작 속 음식·술·연회 장면(온주참화웅, 청매자주, 계륵, 칠보시, 만두의 유래 등)을 모아 두었습니다. 새 레시피를 만들 때 참고하세요. 데이터를 고친 뒤에는 `npm run validate`로 검사합니다.
+`chapter_food_hooks`에는 원작 속 음식·술·연회 장면(온주참화웅, 청매자주, 계륵, 칠보시, 만두의 유래 등)을 모아 두었습니다. 데이터를 고친 뒤에는 `npm run validate`로 검사합니다.
 
 ## 구조
 

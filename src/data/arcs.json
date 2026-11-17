@@ -1,10 +1,10 @@
 [
-  { "id": "huangjin", "name": "황건과 동탁", "chapters": [1, 9], "years": [184, 192], "boss": "dongzhuo" },
-  { "id": "qunxiong", "name": "군웅할거", "chapters": [10, 20], "years": [193, 199], "boss": "lubu" },
-  { "id": "guandu", "name": "관도대전", "chapters": [21, 33], "years": [199, 207], "boss": "yuanshao" },
-  { "id": "chibi", "name": "삼고초려와 적벽", "chapters": [34, 50], "years": [207, 208], "boss": "caocao" },
-  { "id": "jingyi", "name": "형주·익주·한중", "chapters": [51, 72], "years": [209, 219], "boss": "zhouyu" },
-  { "id": "yiling", "name": "관우의 최후와 이릉", "chapters": [73, 85], "years": [219, 223], "boss": "luxun" },
-  { "id": "beifa", "name": "남정과 북벌", "chapters": [86, 105], "years": [224, 235], "boss": "simayi" },
-  { "id": "tongyi", "name": "삼분귀일", "chapters": [106, 120], "years": [238, 280], "boss": "simayan" }
+  {"arcID": "arc0001", "code": "huangjin", "name": "황건과 동탁", "startChpID": "chp0001", "endChpID": "chp0009", "startYear": 184, "endYear": 192, "bossChrID": "chr0008"},
+  {"arcID": "arc0002", "code": "qunxiong", "name": "군웅할거", "startChpID": "chp0010", "endChpID": "chp0020", "startYear": 193, "endYear": 199, "bossChrID": "chr0011"},
+  {"arcID": "arc0003", "code": "guandu", "name": "관도대전", "startChpID": "chp0021", "endChpID": "chp0033", "startYear": 199, "endYear": 207, "bossChrID": "chr0015"},
+  {"arcID": "arc0004", "code": "chibi", "name": "삼고초려와 적벽", "startChpID": "chp0034", "endChpID": "chp0050", "startYear": 207, "endYear": 208, "bossChrID": "chr0005"},
+  {"arcID": "arc0005", "code": "jingyi", "name": "형주·익주·한중", "startChpID": "chp0051", "endChpID": "chp0072", "startYear": 209, "endYear": 219, "bossChrID": "chr0035"},
+  {"arcID": "arc0006", "code": "yiling", "name": "관우의 최후와 이릉", "startChpID": "chp0073", "endChpID": "chp0085", "startYear": 219, "endYear": 223, "bossChrID": "chr0087"},
+  {"arcID": "arc0007", "code": "beifa", "name": "남정과 북벌", "startChpID": "chp0086", "endChpID": "chp0105", "startYear": 224, "endYear": 235, "bossChrID": "chr0095"},
+  {"arcID": "arc0008", "code": "tongyi", "name": "삼분귀일", "startChpID": "chp0106", "endChpID": "chp0120", "startYear": 238, "endYear": 280, "bossChrID": "chr0116"}
 ]

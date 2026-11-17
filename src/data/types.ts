@@ -1,71 +1,73 @@
-// 삼국주방 콘텐츠 데이터 타입
-// chapters.json / characters.json / arcs.json 의 스키마
+// 삼국주방 데이터 타입
+//
+// JSON 파일 하나 = 테이블 하나 (파일 이름 = 테이블 이름).
+// 기본키: 테이블약자 + 'ID' (예: chrID), 값: 테이블약자 + 4자리 순번 (예: chr0001).
+// 외래키는 참조하는 테이블의 기본키 이름을 그대로 쓴다.
 
-/** 세력. 인물이 최종적으로(또는 대표적으로) 속한 진영 */
-export type Faction =
-  | 'han'          // 한 (조정·관료)
-  | 'yellowTurban' // 황건적
-  | 'warlord'      // 군웅 (동탁, 원소, 여포, 유표 등)
-  | 'wei'          // 위
-  | 'shu'          // 촉
-  | 'wu'           // 오
-  | 'jin'          // 진 (사마염 이후)
-  | 'nanman'       // 남만
-  | 'other';       // 은사·도사·의원 등
+// ---------- 테이블 행 ----------
 
-export interface Character {
-  id: string;        // 병음 소문자 (예: 'liubei')
-  nameKo: string;    // 한글 이름
-  nameHanja: string; // 한자 이름
-  faction: Faction;
+/** factions (fac): 세력 */
+export interface FactionRow { facID: string; code: string; name: string }
+
+/** characters (chr): 인물. 순번은 원작 첫 등장 순서 */
+export interface CharacterRow { chrID: string; code: string; nameKo: string; nameHanja: string; facID: string }
+
+/** arcs (arc): 업데이트 단위로 묶은 원작 구간 */
+export interface ArcRow {
+  arcID: string; code: string; name: string;
+  startChpID: string; endChpID: string; startYear: number; endYear: number;
+  bossChrID: string;
 }
 
-/** 원작 삼국지연의 1회 */
-export interface Chapter {
-  id: number;                // 1~120
-  title: [string, string];   // 회목 대구 (모종강본 기준, 번체)
-  label: string;             // 게임 표시용 짧은 한글 이름
-  year: number;              // 주된 배경 연도 (서기). 원작 서술 순서상 역행할 수 있음
-  arc: string;               // arcs.json 의 id
-  cast: string[];            // 주요 등장인물 id (characters.json)
-  foodHooks?: string[];      // 원작 속 음식·술·연회 장면 (레시피 아이디어용)
+/** chapters (chp): 원작 120회. 회목은 모종강본 기준 */
+export interface ChapterRow {
+  chpID: string; chpNo: number; titleFirst: string; titleSecond: string;
+  label: string; year: number; arcID: string;
 }
 
-export interface Ingredient {
-  id: string;
-  name: string;
+/** chapter_casts (chc): 회차별 주요 등장인물 */
+export interface ChapterCastRow { chcID: string; chpID: string; chrID: string; sortOrder: number }
+
+/** chapter_food_hooks (cfh): 원작 속 음식·술·연회 장면 */
+export interface ChapterFoodHookRow { cfhID: string; chpID: string; description: string; sortOrder: number }
+
+/** ingredients (ing): 재료 */
+export interface IngredientRow { ingID: string; code: string; name: string }
+
+/** recipes (rcp): 요리 */
+export interface RecipeRow { rcpID: string; code: string; name: string }
+
+/** recipe_ingredients (rci): 요리에 넣는 재료와 순서 */
+export interface RecipeIngredientRow { rciID: string; rcpID: string; ingID: string; step: number }
+
+/** stages (stg): 게임 장. 원작 회차 하나를 무대로 삼는다 */
+export interface StageRow {
+  stgID: string; stgNo: number; name: string; chpID: string;
+  era: string; year: number; patience: number; arrivalGap: number;
 }
 
-export interface Recipe {
-  id: string;
-  name: string;
-  ingredients: string[]; // 넣는 순서대로 (ingredients.json id)
+/** stage_customers (stc): 장별 손님, 주문, 대사 */
+export interface StageCustomerRow {
+  stcID: string; stgID: string; chrID: string; rcpID: string;
+  line: string; hidden: boolean; sortOrder: number;
 }
 
-export interface StageCustomer {
-  character: string; // characters.json id
-  dish: string;      // recipes.json id
-  line: string;      // 주문할 때 하는 말
-  hidden?: boolean;  // 이스터에그: 실수 없이 진행했을 때만 등장
+// ---------- 게임에서 쓰는 조합 모델 ----------
+
+export interface Character extends CharacterRow { faction: FactionRow }
+
+export interface Recipe extends RecipeRow {
+  /** 넣는 순서대로 ingID */
+  steps: string[];
 }
 
-/** 게임 스테이지. 원작 회차(chapter) 하나를 무대로 삼는다 */
-export interface Stage {
-  id: number;
-  name: string;
-  chapter: number;   // chapters.json id
-  era: string;       // 연호 표기 (예: '중평 원년')
-  year: number;
-  patience: number;  // 손님 인내심(초)
-  arrivalGap: number; // 손님 등장 간격(초)
+export interface Chapter extends ChapterRow {
+  cast: string[];      // chrID
+  foodHooks: string[];
+}
+
+export type StageCustomer = StageCustomerRow;
+
+export interface Stage extends StageRow {
   customers: StageCustomer[];
-}
-
-/** 업데이트 단위로 묶은 구간 */
-export interface Arc {
-  id: string;
-  name: string;
-  chapters: [number, number]; // [시작회, 끝회]
-  years: [number, number];
-  boss: string;               // 구간 보스 손님 (characters.json id)
 }

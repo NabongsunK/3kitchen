@@ -1,5 +1,4 @@
 // 코드로 그리는 픽셀 아트. 외부 이미지 에셋 없이 동작한다.
-import type { Faction } from '../data/types';
 import type { Mood } from './play';
 
 type Ctx = CanvasRenderingContext2D;
@@ -18,6 +17,7 @@ export function drawSprite(ctx: Ctx, sp: Sprite, x: number, y: number, scale: nu
 
 export const ICON_SIZE = 10;
 
+/** 재료·요리 code → 아이콘 */
 export const ICONS: Record<string, Sprite> = {
   bean: {
     pal: { a: '#5b3a1e', b: '#c9a35a' },
@@ -84,7 +84,8 @@ interface Look {
   headColor: string;
 }
 
-export const FACTION_COLOR: Record<Faction, string> = {
+/** 세력 code → 옷 색 */
+export const FACTION_COLOR: Record<string, string> = {
   han: '#a8842e',
   yellowTurban: '#c0a030',
   warlord: '#6a5a7a',
@@ -96,10 +97,7 @@ export const FACTION_COLOR: Record<Faction, string> = {
   other: '#7a7a6a',
 };
 
-export const FACTION_NAME: Record<Faction, string> = {
-  han: '한', yellowTurban: '황건적', warlord: '군웅', wei: '위', shu: '촉', wu: '오', jin: '진', nanman: '남만', other: '재야',
-};
-
+/** 인물 code → 생김새 */
 const LOOKS: Record<string, Partial<Look>> = {
   liubei: { beard: 'short', head: 'crown', headColor: '#2a2a2a' },
   guanyu: { skin: '#b8473a', beard: 'long', head: 'scarf', headColor: '#2f6a3a', robe: '#2f7a3f' },
@@ -115,15 +113,15 @@ const LOOKS: Record<string, Partial<Look>> = {
   xushao: { hair: '#9a9a9a', beard: 'long', head: 'hood', headColor: '#5a5a4a' },
 };
 
-function lookFor(id: string, faction: Faction): Look {
+function lookFor(code: string, factionCode: string): Look {
   return {
-    robe: FACTION_COLOR[faction],
+    robe: FACTION_COLOR[factionCode] ?? '#7a7a6a',
     skin: '#e8c09a',
     hair: '#2a2018',
     beard: 'none',
     head: 'topknot',
     headColor: '#2a2018',
-    ...LOOKS[id],
+    ...LOOKS[code],
   };
 }
 
@@ -136,8 +134,8 @@ const shade = (hex: string, k: number) => {
 export const PORTRAIT_W = 16;
 export const PORTRAIT_H = 20;
 
-export function drawPortrait(ctx: Ctx, id: string, faction: Faction, mood: Mood, x: number, y: number, s: number): void {
-  const L = lookFor(id, faction);
+export function drawPortrait(ctx: Ctx, code: string, factionCode: string, mood: Mood, x: number, y: number, s: number): void {
+  const L = lookFor(code, factionCode);
   const r = (c: string, x0: number, y0: number, x1: number, y1: number) => {
     ctx.fillStyle = c;
     ctx.fillRect(x + x0 * s, y + y0 * s, (x1 - x0) * s, (y1 - y0) * s);

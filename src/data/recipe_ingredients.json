@@ -1,0 +1,13 @@
+[
+  {"rciID": "rci0001", "rcpID": "rcp0001", "ingID": "ing0001", "step": 1},
+  {"rciID": "rci0002", "rcpID": "rcp0001", "ingID": "ing0002", "step": 2},
+  {"rciID": "rci0003", "rcpID": "rcp0002", "ingID": "ing0003", "step": 1},
+  {"rciID": "rci0004", "rcpID": "rcp0002", "ingID": "ing0004", "step": 2},
+  {"rciID": "rci0005", "rcpID": "rcp0002", "ingID": "ing0005", "step": 3},
+  {"rciID": "rci0006", "rcpID": "rcp0003", "ingID": "ing0006", "step": 1},
+  {"rciID": "rci0007", "rcpID": "rcp0003", "ingID": "ing0007", "step": 2},
+  {"rciID": "rci0008", "rcpID": "rcp0003", "ingID": "ing0005", "step": 3},
+  {"rciID": "rci0009", "rcpID": "rcp0004", "ingID": "ing0008", "step": 1},
+  {"rciID": "rci0010", "rcpID": "rcp0004", "ingID": "ing0004", "step": 2},
+  {"rciID": "rci0011", "rcpID": "rcp0004", "ingID": "ing0007", "step": 3}
+]

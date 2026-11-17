@@ -1,0 +1,19 @@
+[
+  {"stcID": "stc0001", "stgID": "stg0001", "chrID": "chr0004", "rcpID": "rcp0001", "line": "창천은 이미 죽었소. 일단 콩죽부터 주시오.", "hidden": false, "sortOrder": 1},
+  {"stcID": "stc0002", "stgID": "stg0001", "chrID": "chr0001", "rcpID": "rcp0002", "line": "아우들과 결의를 맺으려 하오. 복숭아주를 부탁하오.", "hidden": false, "sortOrder": 2},
+  {"stcID": "stc0003", "stgID": "stg0001", "chrID": "chr0002", "rcpID": "rcp0002", "line": "형님과 같은 것으로 주시오.", "hidden": false, "sortOrder": 3},
+  {"stcID": "stc0004", "stgID": "stg0001", "chrID": "chr0003", "rcpID": "rcp0002", "line": "술! 복숭아주 큰 걸로!", "hidden": false, "sortOrder": 4},
+  {"stcID": "stc0005", "stgID": "stg0002", "chrID": "chr0007", "rcpID": "rcp0003", "line": "환관들 때문에 입이 쓰구려. 새콤한 걸로.", "hidden": false, "sortOrder": 1},
+  {"stcID": "stc0006", "stgID": "stg0002", "chrID": "chr0008", "rcpID": "rcp0004", "line": "고기! 불에 구운 고기를 내오너라!", "hidden": false, "sortOrder": 2},
+  {"stcID": "stc0007", "stgID": "stg0002", "chrID": "chr0017", "rcpID": "rcp0004", "line": "강동의 호랑이도 배는 고프다네. 꼬치 하나.", "hidden": false, "sortOrder": 3},
+  {"stcID": "stc0008", "stgID": "stg0003", "chrID": "chr0015", "rcpID": "rcp0003", "line": "연합군 맹주에게 어울리는 걸로 내오게.", "hidden": false, "sortOrder": 1},
+  {"stcID": "stc0009", "stgID": "stg0003", "chrID": "chr0005", "rcpID": "rcp0003", "line": "매실이면 갈증이 가시겠지.", "hidden": false, "sortOrder": 2},
+  {"stcID": "stc0010", "stgID": "stg0003", "chrID": "chr0011", "rcpID": "rcp0004", "line": "적토마도 쉬는 중이다. 꼬치 내놔라.", "hidden": false, "sortOrder": 3},
+  {"stcID": "stc0011", "stgID": "stg0003", "chrID": "chr0006", "rcpID": "rcp0001", "line": "그대 요리에 평을 하나 남겨 볼까. 콩죽 하나.", "hidden": true, "sortOrder": 4},
+  {"stcID": "stc0012", "stgID": "stg0004", "chrID": "chr0012", "rcpID": "rcp0003", "line": "나라 걱정에 속이 시구려. 청매절임을 주시오.", "hidden": false, "sortOrder": 1},
+  {"stcID": "stc0013", "stgID": "stg0004", "chrID": "chr0008", "rcpID": "rcp0004", "line": "봉의정에서 오는 길이다. 꼬치!", "hidden": false, "sortOrder": 2},
+  {"stcID": "stc0014", "stgID": "stg0004", "chrID": "chr0011", "rcpID": "rcp0004", "line": "그 늙은이 얘기는 꺼내지 마라. 꼬치.", "hidden": false, "sortOrder": 3},
+  {"stcID": "stc0015", "stgID": "stg0005", "chrID": "chr0005", "rcpID": "rcp0003", "line": "청매를 보니 갈증이 멎는구려. 천하의 영웅은 누구겠소?", "hidden": false, "sortOrder": 1},
+  {"stcID": "stc0016", "stgID": "stg0005", "chrID": "chr0001", "rcpID": "rcp0002", "line": "천둥에 놀라 젓가락을 떨어뜨렸소. 한 잔 주시오.", "hidden": false, "sortOrder": 2},
+  {"stcID": "stc0017", "stgID": "stg0005", "chrID": "chr0002", "rcpID": "rcp0002", "line": "형님이 걱정되어 왔소. 같은 것으로.", "hidden": false, "sortOrder": 3}
+]

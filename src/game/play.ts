@@ -132,8 +132,8 @@ export function update(s: PlayState, dt: number): void {
   s.done = s.queue.length === 0 && s.seats.every((x) => x === null);
 }
 
-export function addIngredient(s: PlayState, id: string): void {
-  if (!s.done && s.pot.length < POT_LIMIT) s.pot.push(id);
+export function addIngredient(s: PlayState, ingID: string): void {
+  if (!s.done && s.pot.length < POT_LIMIT) s.pot.push(ingID);
 }
 
 export function discard(s: PlayState): void {
@@ -155,12 +155,12 @@ export function cycleTarget(s: PlayState, dir: 1 | -1): void {
 }
 
 export const matches = (recipe: Recipe, pot: string[]) =>
-  recipe.ingredients.length === pot.length && recipe.ingredients.every((x, i) => x === pot[i]);
+  recipe.steps.length === pot.length && recipe.steps.every((x, i) => x === pot[i]);
 
 export function serve(s: PlayState, recipes: Map<string, Recipe>): void {
   const seat = s.seats[s.target];
   if (!isActive(seat) || s.pot.length === 0) return;
-  const recipe = recipes.get(seat.customer.dish);
+  const recipe = recipes.get(seat.customer.rcpID);
   if (recipe && matches(recipe, s.pot)) {
     const points = BASE_POINTS + Math.round((SPEED_BONUS * seat.patience) / seat.maxPatience);
     s.score += points;

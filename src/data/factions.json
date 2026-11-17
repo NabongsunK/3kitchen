@@ -1,0 +1,11 @@
+[
+  {"facID": "fac0001", "code": "han", "name": "한"},
+  {"facID": "fac0002", "code": "yellowTurban", "name": "황건적"},
+  {"facID": "fac0003", "code": "warlord", "name": "군웅"},
+  {"facID": "fac0004", "code": "wei", "name": "위"},
+  {"facID": "fac0005", "code": "shu", "name": "촉"},
+  {"facID": "fac0006", "code": "wu", "name": "오"},
+  {"facID": "fac0007", "code": "jin", "name": "진"},
+  {"facID": "fac0008", "code": "nanman", "name": "남만"},
+  {"facID": "fac0009", "code": "other", "name": "재야"}
+]

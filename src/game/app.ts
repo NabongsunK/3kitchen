@@ -3,7 +3,7 @@ import { arcs, chapterById, characterById, ingredientById, ingredients, mustGet,
 import type { Stage } from '../data/types';
 import * as P from './play';
 import { loadSave, recordResult, writeSave, type SaveData } from './save';
-import { drawPortrait, drawSprite, drawStar, FACTION_COLOR, FACTION_NAME, ICONS, PORTRAIT_H, PORTRAIT_W } from './sprites';
+import { drawPortrait, drawSprite, drawStar, FACTION_COLOR, ICONS, PORTRAIT_H, PORTRAIT_W } from './sprites';
 
 export const W = 640;
 export const H = 360;
@@ -29,7 +29,7 @@ interface Result { score: number; stars: number; best: number; newBest: boolean;
 const SEAT_X = [120, 320, 520];
 const PS = 4; // 초상 배율
 const PORTRAIT_Y = 92;
-const LAST_STAGE = stages[stages.length - 1].id;
+const LAST_STAGE = stages[stages.length - 1].stgNo;
 
 const inside = (r: Rect, x: number, y: number) => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h;
 
@@ -51,7 +51,7 @@ export class App {
   // ---------- 진행 ----------
 
   openStage(st: Stage): void {
-    if (st.id > this.save.unlocked) return;
+    if (st.stgNo > this.save.unlocked) return;
     this.stage = st;
     this.scene = 'intro';
   }
@@ -67,8 +67,8 @@ export class App {
 
   finish(p: P.PlayState): void {
     const stars = P.starsFor(p.served, p.arrived, p.mistakes);
-    const prev = this.save.best[this.stage.id]?.score ?? 0;
-    this.save = recordResult(this.save, this.stage.id, p.score, stars, LAST_STAGE);
+    const prev = this.save.best[this.stage.stgID]?.score ?? 0;
+    this.save = recordResult(this.save, this.stage, p.score, stars, LAST_STAGE);
     writeSave(this.save);
     const hiddenCount = this.stage.customers.filter((c) => c.hidden).length;
     this.result = {
@@ -82,7 +82,7 @@ export class App {
   }
 
   nextStage(): Stage | undefined {
-    return stages.find((s) => s.id === this.stage.id + 1);
+    return stages.find((s) => s.stgNo === this.stage.stgNo + 1);
   }
 
   update(dt: number): void {
@@ -140,7 +140,7 @@ export class App {
           if (k === 'r' || k === 'R' || k === 'Escape' || k === 'Enter') this.showRecipes = false;
           break;
         }
-        if (k >= '1' && k <= String(ingredients.length)) P.addIngredient(p, ingredients[Number(k) - 1].id);
+        if (k >= '1' && k <= String(ingredients.length)) P.addIngredient(p, ingredients[Number(k) - 1].ingID);
         if (k === 'Backspace' || k === 'x' || k === 'X') P.discard(p);
         if (k === 'Enter' || k === ' ') P.serve(p, recipeById);
         if (k === 'ArrowLeft') P.cycleTarget(p, -1);
@@ -207,8 +207,9 @@ export class App {
     if (!opt.disabled) this.hits.push({ ...r, onClick });
   }
 
-  icon(id: string, x: number, y: number, s: number): void {
-    const sp = ICONS[id];
+  /** code로 아이콘 그리기 */
+  icon(code: string, x: number, y: number, s: number): void {
+    const sp = ICONS[code];
     if (sp) drawSprite(this.ctx, sp, x, y, s);
   }
 
@@ -274,8 +275,8 @@ export class App {
 
   drawTitle(): void {
     this.room();
-    ['liubei', 'guanyu', 'zhangfei'].forEach((id, i) => {
-      drawPortrait(this.ctx, id, 'shu', 'happy', SEAT_X[i] - 32, PORTRAIT_Y + 30, PS);
+    ['liubei', 'guanyu', 'zhangfei'].forEach((code, i) => {
+      drawPortrait(this.ctx, code, 'shu', 'happy', SEAT_X[i] - 32, PORTRAIT_Y + 30, PS);
     });
     this.dim(0.35);
     this.box({ x: 150, y: 34, w: 340, h: 130 });
@@ -293,64 +294,65 @@ export class App {
     this.button({ x: 520, y: 10, w: 100, h: 30 }, '처음으로', () => { this.scene = 'title'; }, { size: 12 });
     stages.forEach((st, i) => {
       const r = { x: 40, y: 50 + i * 54, w: 560, h: 48 };
-      const locked = st.id > this.save.unlocked;
-      const ch = mustGet(chapterById, st.chapter);
+      const locked = st.stgNo > this.save.unlocked;
+      const ch = mustGet(chapterById, st.chpID);
       this.box(r, locked ? '#221812' : C.panel, locked ? '#3a2a1e' : C.panelEdge);
-      this.text(`제${st.id}장  ${st.name}`, r.x + 16, r.y + 17, 16, locked ? '#6a5a4a' : C.ink, 'left', true);
-      this.text(`${st.era} (${st.year}년) · 원작 제${ch.id}회 「${ch.label}」`, r.x + 16, r.y + 36, 11, locked ? '#5a4a3a' : C.dim);
+      this.text(`제${st.stgNo}장  ${st.name}`, r.x + 16, r.y + 17, 16, locked ? '#6a5a4a' : C.ink, 'left', true);
+      this.text(`${st.era} (${st.year}년) · 원작 제${ch.chpNo}회 「${ch.label}」`, r.x + 16, r.y + 36, 11, locked ? '#5a4a3a' : C.dim);
       if (locked) {
         this.text('잠김', r.x + r.w - 20, r.y + 24, 13, '#6a5a4a', 'right');
       } else {
-        const best = this.save.best[st.id];
+        const best = this.save.best[st.stgID];
         for (let k = 0; k < 3; k++) drawStar(this.ctx, r.x + 400 + k * 26, r.y + 8, 3, (best?.stars ?? 0) > k);
         this.text(best ? `최고 ${best.score}` : '도전 전', r.x + r.w - 16, r.y + 36, 11, C.dim, 'right');
         this.hits.push({ ...r, onClick: () => this.openStage(st) });
       }
     });
-    const reached = mustGet(chapterById, stages[stages.length - 1].chapter);
-    const arc = arcs.find((a) => a.chapters[0] <= reached.id && reached.id <= a.chapters[1]);
-    this.text(`원작 120회 중 제${reached.id}회까지 공개 · 현재 구간: ${arc?.name ?? ''}`, W / 2, 342, 11, C.dim, 'center');
+    const reached = mustGet(chapterById, stages[stages.length - 1].chpID);
+    const arc = arcs.find((a) => mustGet(chapterById, a.startChpID).chpNo <= reached.chpNo && reached.chpNo <= mustGet(chapterById, a.endChpID).chpNo);
+    this.text(`원작 120회 중 제${reached.chpNo}회까지 공개 · 현재 구간: ${arc?.name ?? ''}`, W / 2, 342, 11, C.dim, 'center');
   }
 
   drawIntro(): void {
     const st = this.stage;
-    const ch = mustGet(chapterById, st.chapter);
+    const ch = mustGet(chapterById, st.chpID);
     this.room();
     this.dim(0.6);
     this.box({ x: 40, y: 16, w: 560, h: 328 });
-    this.text(`제${st.id}장  ${st.name}`, W / 2, 44, 24, C.gold, 'center', true);
-    this.text(`${st.era} (${st.year}년) · 원작 제${ch.id}회`, W / 2, 72, 12, C.dim, 'center');
-    this.text(`${ch.title[0]}　${ch.title[1]}`, W / 2, 94, 14, C.ink, 'center');
+    this.text(`제${st.stgNo}장  ${st.name}`, W / 2, 44, 24, C.gold, 'center', true);
+    this.text(`${st.era} (${st.year}년) · 원작 제${ch.chpNo}회`, W / 2, 72, 12, C.dim, 'center');
+    this.text(`${ch.titleFirst}　${ch.titleSecond}`, W / 2, 94, 14, C.ink, 'center');
 
     const visible = st.customers.filter((c) => !c.hidden);
     const seen = new Set<string>();
-    const guests = visible.filter((c) => !seen.has(c.character) && seen.add(c.character));
+    const guests = visible.filter((c) => !seen.has(c.chrID) && seen.add(c.chrID));
     const gw = 76;
     const gx = W / 2 - (guests.length * gw) / 2;
     guests.forEach((g, i) => {
-      const who = mustGet(characterById, g.character);
+      const who = mustGet(characterById, g.chrID);
       const x = gx + i * gw + (gw - PORTRAIT_W * 3) / 2;
-      drawPortrait(this.ctx, who.id, who.faction, 'wait', x, 112, 3);
+      drawPortrait(this.ctx, who.code, who.faction.code, 'wait', x, 112, 3);
       this.text(who.nameKo, x + 24, 182, 12, C.ink, 'center', true);
-      this.text(FACTION_NAME[who.faction], x + 24, 197, 10, FACTION_COLOR[who.faction], 'center');
+      this.text(who.faction.name, x + 24, 197, 10, FACTION_COLOR[who.faction.code], 'center');
     });
 
-    const dishes = [...new Set(st.customers.map((c) => c.dish))].map((d) => mustGet(recipeById, d));
-    dishes.forEach((r, i) => this.recipeRow(r.id, 120, 222 + i * 22, 1.8));
+    const dishes = [...new Set(st.customers.map((c) => c.rcpID))];
+    dishes.forEach((rcpID, i) => this.recipeRow(rcpID, 120, 222 + i * 22, 1.8));
     this.button({ x: 245, y: 296, w: 150, h: 36 }, '영업 시작', () => this.start(), { primary: true, size: 15 });
     this.button({ x: 56, y: 300, w: 80, h: 28 }, '뒤로', () => { this.scene = 'select'; }, { size: 12 });
   }
 
-  recipeRow(id: string, x: number, y: number, s: number): void {
-    const r = mustGet(recipeById, id);
+  recipeRow(rcpID: string, x: number, y: number, s: number): void {
+    const r = mustGet(recipeById, rcpID);
     const sz = 10 * s;
-    this.icon(r.id, x, y - sz / 2, s);
+    this.icon(r.code, x, y - sz / 2, s);
     this.text(r.name, x + sz + 8, y, 13, C.ink, 'left', true);
-    r.ingredients.forEach((ing, i) => {
+    r.steps.forEach((ingID, i) => {
+      const ing = mustGet(ingredientById, ingID);
       const ix = x + 150 + i * (sz + 60);
       if (i > 0) this.text('→', ix - 10, y, 12, C.dim, 'center');
-      this.icon(ing, ix, y - sz / 2, s);
-      this.text(mustGet(ingredientById, ing).name, ix + sz + 2, y, 10, C.dim);
+      this.icon(ing.code, ix, y - sz / 2, s);
+      this.text(ing.name, ix + sz + 2, y, 10, C.dim);
     });
   }
 
@@ -363,7 +365,7 @@ export class App {
     // 상단 바
     c.fillStyle = C.panel;
     c.fillRect(0, 0, W, 28);
-    this.text(`제${this.stage.id}장 ${this.stage.name}`, 10, 14, 13, C.gold, 'left', true);
+    this.text(`제${this.stage.stgNo}장 ${this.stage.name}`, 10, 14, 13, C.gold, 'left', true);
     this.text(`점수 ${p.score}`, 200, 14, 13, C.ink, 'left', true);
     this.text(`대접 ${p.served} · 놓침 ${p.missed} · 실수 ${p.mistakes}`, 290, 14, 11, C.dim);
     this.button({ x: 478, y: 3, w: 78, h: 22 }, '레시피 R', () => { this.showRecipes = true; }, { size: 11 });
@@ -377,7 +379,7 @@ export class App {
     c.fillRect(0, 226, W, H - 226);
     this.box({ x: 10, y: 232, w: 244, h: 70 });
     this.text(`냄비 (${p.pot.length}/${P.POT_LIMIT})`, 20, 245, 11, C.dim);
-    p.pot.forEach((id, k) => this.icon(id, 22 + k * 45, 258, 3));
+    p.pot.forEach((ingID, k) => this.icon(mustGet(ingredientById, ingID).code, 22 + k * 45, 258, 3));
     if (!p.pot.length) this.text('재료를 순서대로 넣으세요', 132, 275, 12, '#6a5a4a', 'center');
     this.button({ x: 10, y: 308, w: 116, h: 44 }, '버리기 X', () => P.discard(p), { size: 13 });
     this.button({ x: 132, y: 308, w: 122, h: 44 }, '서빙 Enter', () => P.serve(p, recipeById), { primary: true, size: 14 });
@@ -385,10 +387,10 @@ export class App {
     ingredients.forEach((g, k) => {
       const r = { x: 262 + (k % 4) * 94, y: 232 + Math.floor(k / 4) * 62, w: 90, h: 58 };
       this.box(r, '#3a2618', '#120c08');
-      this.icon(g.id, r.x + 8, r.y + 14, 3);
+      this.icon(g.code, r.x + 8, r.y + 14, 3);
       this.text(g.name, r.x + 62, r.y + 32, 13, C.ink, 'center', true);
       this.text(String(k + 1), r.x + r.w - 8, r.y + 11, 10, C.dim, 'right');
-      this.hits.push({ ...r, onClick: () => P.addIngredient(p, g.id) });
+      this.hits.push({ ...r, onClick: () => P.addIngredient(p, g.ingID) });
     });
 
     // 떠오르는 점수
@@ -411,7 +413,7 @@ export class App {
       this.text('빈 자리', cx, 150, 12, 'rgba(244,232,208,0.25)', 'center');
       return;
     }
-    const who = mustGet(characterById, seat.customer.character);
+    const who = mustGet(characterById, seat.customer.chrID);
     const leaving = seat.leaveIn >= 0;
     c.save();
     if (leaving) c.globalAlpha = Math.max(0, seat.leaveIn / 1.2);
@@ -426,29 +428,29 @@ export class App {
       c.fillRect(fx + PORTRAIT_W * PS + 9, PORTRAIT_Y - 4, 3, PORTRAIT_H * PS + 5);
     }
     const bob = seat.mood === 'happy' ? Math.abs(Math.sin(this.t * 10)) * -3 : seat.mood === 'angry' ? Math.sin(this.t * 40) * 1.5 : 0;
-    drawPortrait(c, who.id, who.faction, seat.mood, cx - (PORTRAIT_W * PS) / 2 + (seat.mood === 'angry' ? bob : 0), PORTRAIT_Y + (seat.mood === 'happy' ? bob : 0), PS);
+    drawPortrait(c, who.code, who.faction.code, seat.mood, cx - (PORTRAIT_W * PS) / 2 + (seat.mood === 'angry' ? bob : 0), PORTRAIT_Y + (seat.mood === 'happy' ? bob : 0), PS);
 
     // 말풍선
     const b = { x: cx - 92, y: 32, w: 184, h: 54 };
     this.box(b, '#f4e8d0', '#2a1c14');
     c.fillStyle = '#f4e8d0';
     c.fillRect(cx - 4, b.y + b.h - 2, 8, 5);
-    const recipe = mustGet(recipeById, seat.customer.dish);
-    this.icon(recipe.id, b.x + 6, b.y + 5, 1.8);
+    const recipe = mustGet(recipeById, seat.customer.rcpID);
+    this.icon(recipe.code, b.x + 6, b.y + 5, 1.8);
     c.font = `bold 12px ${FONT}`;
     c.textAlign = 'left';
     c.textBaseline = 'middle';
     c.fillStyle = '#5a1a10';
     c.fillText(recipe.name, b.x + 28, b.y + 14);
-    if (this.stage.id === 1) {
-      recipe.ingredients.forEach((ing, k) => this.icon(ing, b.x + b.w - 8 - (recipe.ingredients.length - k) * 17, b.y + 6, 1.5));
+    if (this.stage.stgNo === 1) {
+      recipe.steps.forEach((ingID, k) => this.icon(mustGet(ingredientById, ingID).code, b.x + b.w - 8 - (recipe.steps.length - k) * 17, b.y + 6, 1.5));
     }
     c.font = `11px ${FONT}`;
     c.fillStyle = seat.mood === 'angry' ? '#a02a1a' : '#3a2a1e';
     this.wrap(seat.say, b.w - 14, 11).slice(0, 2).forEach((line, k) => c.fillText(line, b.x + 7, b.y + 31 + k * 13));
 
     // 이름표와 인내심
-    this.text(`${who.nameKo} · ${FACTION_NAME[who.faction]}`, cx, 180, 12, C.ink, 'center', true);
+    this.text(`${who.nameKo} · ${who.faction.name}`, cx, 180, 12, C.ink, 'center', true);
     const ratio = seat.patience / seat.maxPatience;
     c.fillStyle = '#1a1008';
     c.fillRect(cx - 50, 189, 100, 7);
@@ -463,7 +465,7 @@ export class App {
     this.dim(0.75);
     this.box({ x: 70, y: 40, w: 500, h: 280 });
     this.text('레시피', W / 2, 66, 20, C.gold, 'center', true);
-    recipes.forEach((r, i) => this.recipeRow(r.id, 100, 110 + i * 40, 2.2));
+    recipes.forEach((r, i) => this.recipeRow(r.rcpID, 100, 110 + i * 40, 2.2));
     this.button({ x: 255, y: 272, w: 130, h: 34 }, '닫기 R', () => { this.showRecipes = false; }, { primary: true });
     this.hits.unshift({ x: 0, y: 0, w: W, h: H, onClick: () => {} }); // 뒤 클릭 막기
   }
