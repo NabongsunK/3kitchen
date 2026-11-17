@@ -1,0 +1,49 @@
+[
+  {
+    "id": 1, "name": "도원결의", "chapter": 1, "era": "중평 원년", "year": 184,
+    "patience": 25, "arrivalGap": 4,
+    "customers": [
+      { "character": "zhangjiao", "dish": "kongjuk", "line": "창천은 이미 죽었소. 일단 콩죽부터 주시오." },
+      { "character": "liubei", "dish": "peachwine", "line": "아우들과 결의를 맺으려 하오. 복숭아주를 부탁하오." },
+      { "character": "guanyu", "dish": "peachwine", "line": "형님과 같은 것으로 주시오." },
+      { "character": "zhangfei", "dish": "peachwine", "line": "술! 복숭아주 큰 걸로!" }
+    ]
+  },
+  {
+    "id": 2, "name": "동탁의 횡포", "chapter": 3, "era": "중평 6년", "year": 189,
+    "patience": 22, "arrivalGap": 4,
+    "customers": [
+      { "character": "hejin", "dish": "plumpickle", "line": "환관들 때문에 입이 쓰구려. 새콤한 걸로." },
+      { "character": "dongzhuo", "dish": "skewer", "line": "고기! 불에 구운 고기를 내오너라!" },
+      { "character": "sunjian", "dish": "skewer", "line": "강동의 호랑이도 배는 고프다네. 꼬치 하나." }
+    ]
+  },
+  {
+    "id": 3, "name": "삼영전여포", "chapter": 5, "era": "초평 원년", "year": 190,
+    "patience": 20, "arrivalGap": 3.5,
+    "customers": [
+      { "character": "yuanshao", "dish": "plumpickle", "line": "연합군 맹주에게 어울리는 걸로 내오게." },
+      { "character": "caocao", "dish": "plumpickle", "line": "매실이면 갈증이 가시겠지." },
+      { "character": "lubu", "dish": "skewer", "line": "적토마도 쉬는 중이다. 꼬치 내놔라." },
+      { "character": "xushao", "dish": "kongjuk", "line": "그대 요리에 평을 하나 남겨 볼까. 콩죽 하나.", "hidden": true }
+    ]
+  },
+  {
+    "id": 4, "name": "연환계", "chapter": 8, "era": "초평 3년", "year": 192,
+    "patience": 18, "arrivalGap": 3,
+    "customers": [
+      { "character": "wangyun", "dish": "plumpickle", "line": "나라 걱정에 속이 시구려. 청매절임을 주시오." },
+      { "character": "dongzhuo", "dish": "skewer", "line": "봉의정에서 오는 길이다. 꼬치!" },
+      { "character": "lubu", "dish": "skewer", "line": "그 늙은이 얘기는 꺼내지 마라. 꼬치." }
+    ]
+  },
+  {
+    "id": 5, "name": "청매자론주", "chapter": 21, "era": "건안 4년", "year": 199,
+    "patience": 16, "arrivalGap": 3,
+    "customers": [
+      { "character": "caocao", "dish": "plumpickle", "line": "청매를 보니 갈증이 멎는구려. 천하의 영웅은 누구겠소?" },
+      { "character": "liubei", "dish": "peachwine", "line": "천둥에 놀라 젓가락을 떨어뜨렸소. 한 잔 주시오." },
+      { "character": "guanyu", "dish": "peachwine", "line": "형님이 걱정되어 왔소. 같은 것으로." }
+    ]
+  }
+]

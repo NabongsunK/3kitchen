@@ -1,0 +1,6 @@
+[
+  { "id": "kongjuk", "name": "콩죽", "ingredients": ["bean", "rice"] },
+  { "id": "peachwine", "name": "도원복숭아주", "ingredients": ["peach", "wine", "honey"] },
+  { "id": "plumpickle", "name": "청매절임", "ingredients": ["plum", "salt", "honey"] },
+  { "id": "skewer", "name": "화로꼬치", "ingredients": ["meat", "wine", "salt"] }
+]

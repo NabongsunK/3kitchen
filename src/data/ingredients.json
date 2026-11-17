@@ -1,0 +1,10 @@
+[
+  { "id": "bean", "name": "콩" },
+  { "id": "rice", "name": "쌀" },
+  { "id": "peach", "name": "복숭아" },
+  { "id": "wine", "name": "술" },
+  { "id": "honey", "name": "꿀" },
+  { "id": "plum", "name": "매실" },
+  { "id": "salt", "name": "소금" },
+  { "id": "meat", "name": "고기" }
+]

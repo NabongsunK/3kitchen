@@ -1,0 +1,10 @@
+[
+  { "id": "huangjin", "name": "황건과 동탁", "chapters": [1, 9], "years": [184, 192], "boss": "dongzhuo" },
+  { "id": "qunxiong", "name": "군웅할거", "chapters": [10, 20], "years": [193, 199], "boss": "lubu" },
+  { "id": "guandu", "name": "관도대전", "chapters": [21, 33], "years": [199, 207], "boss": "yuanshao" },
+  { "id": "chibi", "name": "삼고초려와 적벽", "chapters": [34, 50], "years": [207, 208], "boss": "caocao" },
+  { "id": "jingyi", "name": "형주·익주·한중", "chapters": [51, 72], "years": [209, 219], "boss": "zhouyu" },
+  { "id": "yiling", "name": "관우의 최후와 이릉", "chapters": [73, 85], "years": [219, 223], "boss": "luxun" },
+  { "id": "beifa", "name": "남정과 북벌", "chapters": [86, 105], "years": [224, 235], "boss": "simayi" },
+  { "id": "tongyi", "name": "삼분귀일", "chapters": [106, 120], "years": [238, 280], "boss": "simayan" }
+]
